@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-3">Notifications</h2>
+      {% include 'includes/messages.html' %}
+    <table class="table table-striped table-hover" id="table_id">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Message</th>
+                <th scope="col">Actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+         {% for i in notification %}
+            <tr>
+                <th scope="row">{{i.message}}</th>
+                <td>
+                    {% if i.status == 0 %}
+                 <a href="{% url 'notifications_done' status=i.id %}"><button class="btn btn-danger">Mark as Done</button></a>
+                    {% else %}
+                    <button class="btn btn-danger" disabled="disabled">Mark as Done</button>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

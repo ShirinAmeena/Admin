@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">View Attendance</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6"> <!-- Set form width to 50% using Bootstrap grid -->
+          {% if action is None %}
+            <form action="?action=view_attendance" method="post" class="p-4 shadow rounded bg-white" >
+
+            {% csrf_token %}
+            {% include 'includes/messages.html' %}
+              <div class="mb-3">
+                    <label for="course" class="form-label">Subject</label>
+                   <select class="form-select gender-select" name="subject_id" required>
+                        <option>Select Subject</option>
+                       {% for i in subject %}
+                        <option value="{{i.id}}">{{i.name}}</option>
+                      {% endfor %}
+                    </select>
+
+                </div>
+                <div class="mb-3">
+            <label for="staff" class="form-label">Session Year</label>
+            <select class="form-select gender-select" name="session_year_id" required>
+                <option>Select Session Year</option>
+                {% for i in session_year %}
+                    <option value="{{ i.id }}">
+                        {{ i.session_start|date:"Y" }} &nbsp; to &nbsp; {{ i.session_end|date:"Y" }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+                 <div class="mb-3">
+                    <label for="attendance_data" class="form-label">Attendance Date</label>
+                    <input id="attendance_data" name="attendance_data" type="date" class="form-control" value="" required>
+                </div>
+                        <div class="d-grid">
+                    <button type="submit" class="btn btn-success">Show Students</button>
+                </div>
+            </form>
+{% else %}
+            <form action="?action=view_attendance" method="post" class="p-4 shadow rounded bg-white" >
+            {% csrf_token %}
+            {% include 'includes/messages.html' %}
+              <div class="mb-3">
+                    <label for="course" class="form-label">Subject</label>
+                   <select class="form-select gender-select" name="subject_id" disabled>
+                        <option value="{{i.id}}">{{get_subject}}</option>
+                    </select>
+
+                </div>
+                <div class="mb-3">
+            <label for="staff" class="form-label">Session Year</label>
+         <select class="form-select gender-select" name="session_year_id" disabled>
+    <option value="{{ get_session_year.id }}">
+        {{ get_session_year.session_start|date:"Y" }} - {{ get_session_year.session_end|date:"Y" }}
+    </option>
+</select>
+
+        </div>
+                 <div class="mb-3">
+                    <label for="attendance_data" class="form-label">Attendance Date</label>
+                    <input id="attendance_data" name="attendance_data" type="date" class="form-control" value="{{attendance_data}}" disabled>
+                </div>
+                        <div class="d-grid">
+                 <table class="table table-striped table-hover" id="table_id">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+            </tr>
+        </thead>
+        <tbody>
+         {% for i in attendance_report %}
+            <tr>
+                <th scope="row">{{i.student_id.admin.id}}</th>
+                <td>{{i.student_id.admin.first_name}} {{i.student_id.admin.last_name}}</td>
+                <td>{{i.student_id.admin.email}}</td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                </div>
+            </form>
+   {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

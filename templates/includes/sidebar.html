@@ -1,0 +1,487 @@
+	<div x-data="{ sidemenu: false }" class="h-screen flex overflow-hidden" x-cloak @keydown.window.escape="sidemenu = false">
+
+		<div class="md:hidden">
+			<div @click="sidemenu = false" class="fixed inset-0 z-30 bg-gray-600 opacity-0 pointer-events-none transition-opacity ease-linear duration-300" :class="{'opacity-75 pointer-events-auto': sidemenu, 'opacity-0 pointer-events-none': !sidemenu}"></div>
+
+			<!-- Small Screen Menu -->
+			<div class="fixed inset-y-0 left-0 flex flex-col z-40 max-w-xs w-full bg-white transform ease-in-out duration-300 -translate-x-full" :class="{'translate-x-0': sidemenu, '-translate-x-full': !sidemenu}">
+
+				<!-- Brand Logo / Name -->
+				<div class="flex items-center px-6 py-3 h-16">
+					<div class="text-2xl font-bold tracking-tight text-gray-800">Pre-Edu</div>
+				</div>
+				<!-- @end Brand Logo / Name -->
+  <div class="flex items-center px-6 ">
+
+			</div>
+				<div class="px-4 py-2 flex-1 h-0 overflow-y-auto">
+ {% if user.user_type == '1' %}
+					<ul>
+
+							<li>
+							<a href="{% url 'hod_home' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								  <i class="fa fa-dashboard mr-2"></i> <!-- Dashboard icon -->
+								Dashboard
+							</a>
+						</li>
+
+										 <!-- Dashboard Link with Dropdowns -->
+            <li x-data="{ open: false }" class="relative">
+                <!-- Main Dashboard Link -->
+                <a href="#" @click.prevent="open = !open" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200">
+                    <i class="fa fa-user-graduate mr-2"></i> <!-- Student icon -->
+                    Students
+                    <i :class="open ? 'fa fa-angle-up ml-auto' : 'fa fa-angle-down ml-auto'"></i> <!-- Toggle icon -->
+                </a>
+
+                <!-- Dropdown Links -->
+                <ul x-show="open" class="pl-6 mt-1 space-y-1">
+                    <li><a href="{% url 'add_student' %}" class="block px-2 py-1 hover:bg-gray-200">Add Student</a></li>
+                    <li><a href="{% url 'view_student' %}" class="block px-2 py-1 hover:bg-gray-200">View Student</a></li>
+
+                </ul>
+            </li>
+
+						   <li x-data="{ open: false }" class="relative">
+                <!-- Main Dashboard Link -->
+                <a href="#" @click.prevent="open = !open" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200">
+                  <i class="fa fa-user-tie mr-2"></i> <!-- Staff icon -->
+                    Staff
+                    <i :class="open ? 'fa fa-angle-up ml-auto' : 'fa fa-angle-down ml-auto'"></i> <!-- Toggle icon -->
+                </a>
+
+                <!-- Dropdown Links -->
+                <ul x-show="open" class="pl-6 mt-1 space-y-1">
+                    <li><a href="{% url 'add_staff' %}" class="block px-2 py-1 hover:bg-gray-200">Add Staff</a></li>
+                    <li><a href="{% url 'view_staff' %}" class="block px-2 py-1 hover:bg-gray-200">View Staff</a></li>
+
+                </ul>
+            </li>
+
+
+
+
+						   <li x-data="{ open: false }" class="relative">
+                <!-- Main Dashboard Link -->
+                <a href="#" @click.prevent="open = !open" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200">
+                    <i class="fa fa-chalkboard-teacher mr-2"></i> <!-- Course icon -->
+                    Course
+                    <i :class="open ? 'fa fa-angle-up ml-auto' : 'fa fa-angle-down ml-auto'"></i> <!-- Toggle icon -->
+                </a>
+
+                <!-- Dropdown Links -->
+                <ul x-show="open" class="pl-6 mt-1 space-y-1">
+                    <li><a href="{% url 'add_course' %}" class="block px-2 py-1 hover:bg-gray-200">Add Course </a></li>
+                    <li><a href="{% url 'view_course' %}" class="block px-2 py-1 hover:bg-gray-200"> View Add</a></li>
+
+                </ul>
+            </li>
+						<li x-data="{ open: false }" class="relative">
+                <!-- Main Dashboard Link -->
+                <a href="#" @click.prevent="open = !open" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200">
+                   <i class="fa fa-chalkboard-teacher mr-2"></i> <!-- Course icon -->
+                    Subject
+                    <i :class="open ? 'fa fa-angle-up ml-auto' : 'fa fa-angle-down ml-auto'"></i> <!-- Toggle icon -->
+                </a>
+
+                <!-- Dropdown Links -->
+                <ul x-show="open" class="pl-6 mt-1 space-y-1">
+                    <li><a href="{% url 'add_subject' %}" class="block px-2 py-1 hover:bg-gray-200">Add Subject</a></li>
+                    <li><a href="{% url 'view_subject' %}" class="block px-2 py-1 hover:bg-gray-200">View Subject</a></li>
+
+                </ul>
+            </li>
+						<li x-data="{ open: false }" class="relative">
+                <!-- Main Dashboard Link -->
+                <a href="#" @click.prevent="open = !open" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200">
+                  <i class="fa fa-calendar-alt mr-2"></i> <!-- Session icon -->
+                    Session
+                    <i :class="open ? 'fa fa-angle-up ml-auto' : 'fa fa-angle-down ml-auto'"></i> <!-- Toggle icon -->
+                </a>
+
+                <!-- Dropdown Links -->
+                <ul x-show="open" class="pl-6 mt-1 space-y-1">
+                    <li><a href="{% url 'add_session' %}" class="block px-2 py-1 hover:bg-gray-200">Add Session</a></li>
+                    <li><a href="{% url 'view_session' %}" class="block px-2 py-1 hover:bg-gray-200">View Session</a></li>
+
+                </ul>
+            </li>
+                        <li>
+							<a href="{% url 'send_staff_notifications' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								 <i class="fa-solid fa-bell mr-2"></i>
+							Staff Notification
+							</a>
+						</li>
+                        <li>
+							<a href="{% url 'student_send_notifications' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								 <i class="fa-solid fa-bell mr-2"></i>
+							Student Notification
+							</a>
+						</li>
+
+
+						<li>
+							<a href="{% url 'view_student_attendance' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								 <i class="fa-solid fa-user-check mr-2"></i>
+								View Atendance
+							</a>
+						</li>
+						<li>
+							<a href="{% url 'staff_feedback_view' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							 <i class="fa-solid fa-users mr-2"></i>
+								Staff Feedback
+							</a>
+						</li>
+						<li>
+							<a href="{% url 'student_feedback_view' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+						   <i class="fa-solid fa-user-graduate mr-2"></i>
+								Student Feedback
+							</a>
+						</li>
+						<li>
+							<a href="{% url 'staff_leave_view' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							<i class="fa-solid fa-user-times mr-2"></i>
+								Staff Leave
+							</a>
+						</li>
+						<li>
+							<a href="{% url 'student_leave_view' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+						<i class="fa-solid fa-user-slash mr-2"></i>
+								Student Leave
+							</a>
+						</li>
+						<li>
+							<a href="{% url 'dologout' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							    <i class="fa-solid fa-sign-out-alt mr-2"></i>
+								Logout
+							</a>
+						</li>
+					</ul>
+					   {% elif user.user_type == '2' %}
+<ul>
+				 <li>
+							<a href="{% url 'staff_home' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								 <i class="fa fa-dashboard mr-2"></i> <!-- Dashboard icon -->
+							Dashboard
+							</a>
+						</li>
+					 <li>
+							<a href="{% url 'staff_take_attendance' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								  <i class="fa fa-check-square mr-2"></i> <!-- Attendance icon -->
+							Take Attendance
+							</a>
+						</li>
+					 <li>
+							<a href="{% url 'staff_view_attendance' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								 <i class="fa fa-eye mr-2"></i> <!-- View icon -->
+							View Attendance
+							</a>
+						</li>
+					 <li>
+							<a href="{% url 'add_result' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								<i class="fa fa-plus-square mr-2"></i> <!-- Add Result icon -->
+							Add result
+							</a>
+						</li>
+					 <li>
+							<a href="{% url 'apply_leave' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								 <i class="fa fa-envelope-open-text mr-2"></i> <!-- Leave icon -->
+							Apply for leave
+							</a>
+						</li>
+					 <li>
+							<a href="{% url 'staff_feedback' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								 <i class="fa fa-comments mr-2"></i> <!-- Feedback icon -->
+							Send feedback
+							</a>
+						</li>
+	 <li>
+							<a href="{% url 'notifications' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								 <i class="fa fa-bell mr-2"></i> <!-- Feedback icon -->
+							Notifications
+							</a>
+						</li>
+					 <li>
+							<a href="{% url 'dologout' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								   <i class="fa fa-sign-out-alt mr-2"></i> <!-- Logout icon -->
+							Logout
+							</a>
+						</li>
+</ul>
+				{% else %}
+					<ul>
+				 <li>
+							<a href="{% url 'student_home' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								 <i class="fa fa-dashboard mr-2"></i> <!-- Dashboard icon -->
+							Dashboard
+							</a>
+						</li>
+
+					 <li>
+							<a href="{% url 'student_view_attendance' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								 <i class="fa fa-eye mr-2"></i> <!-- View icon -->
+							View Attendance
+							</a>
+						</li>
+					 <li>
+							<a href="{% url 'student_view_result' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								<i class="fa fa-plus-square mr-2"></i> <!-- Add Result icon -->
+							View result
+							</a>
+						</li>
+					 <li>
+							<a href="{% url 'student_apply_leave' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								 <i class="fa fa-envelope-open-text mr-2"></i> <!-- Leave icon -->
+							Apply for leave
+							</a>
+						</li>
+					 <li>
+							<a href="{% url 'student_feedback' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								 <i class="fa fa-comments mr-2"></i> <!-- Feedback icon -->
+							Send feedback
+							</a>
+						</li>
+	 <li>
+							<a href="{% url 'student_notifications' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								 <i class="fa fa-bell mr-2"></i> <!-- Feedback icon -->
+							Notifications
+							</a>
+						</li>
+					 <li>
+							<a href="{% url 'dologout' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+								   <i class="fa fa-sign-out-alt mr-2"></i> <!-- Logout icon -->
+							Logout
+							</a>
+						</li>
+</ul>
+				{% endif %}
+				</div>
+
+			</div>
+			<!-- @end Small Screen Menu -->
+		</div>
+
+		<!-- Menu Above Medium Screen -->
+
+		<div class="bg-white w-64 min-h-screen overflow-y-auto hidden md:block shadow relative z-30">
+
+			<!-- Brand Logo / Name -->
+			<div class="flex items-center px-6 py-3 h-16">
+				<div class="text-2xl font-bold tracking-tight text-gray-800">Pre-Edu</div>
+			</div>
+			<!-- @end Brand Logo / Name -->
+
+          <div class="flex items-center px-6 ">
+
+			</div>
+			<div class="px-4 py-2">
+             {% if user.user_type == '1' %}
+				 <ul>
+           	<li>
+						<a href="{% url 'hod_home' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							  <i class="fa fa-dashboard mr-2"></i> <!-- Dashboard icon -->
+							Dashboard
+						</a>
+					</li>
+
+					  <!-- Student Link with Dropdowns -->
+            <li x-data="{ open: false }" class="relative">
+                <!-- Main Dashboard Link -->
+                <a href="#" @click.prevent="open = !open" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200">
+                   <i class="fa fa-user-graduate mr-2"></i> <!-- Student icon -->
+                    Students
+                    <i :class="open ? 'fa fa-angle-up ml-auto' : 'fa fa-angle-down ml-auto'"></i> <!-- Toggle icon -->
+                </a>
+
+                <!-- Dropdown Links -->
+                <ul x-show="open" class="pl-6 mt-1 space-y-1">
+                    <li><a href="{% url 'add_student' %}" class="block px-2 py-1 hover:bg-gray-200">Add Student</a></li>
+                    <li><a href="{% url 'view_student' %}" class="block px-2 py-1 hover:bg-gray-200">View Student</a></li>
+
+                </ul>
+            </li>
+
+					  <!-- Staff Link with Dropdowns -->
+            <li x-data="{ open: false }" class="relative">
+                <!-- Main Dashboard Link -->
+                <a href="#" @click.prevent="open = !open" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200">
+                  <i class="fa fa-user-tie mr-2"></i> <!-- Staff icon -->
+                    Staff
+                    <i :class="open ? 'fa fa-angle-up ml-auto' : 'fa fa-angle-down ml-auto'"></i> <!-- Toggle icon -->
+                </a>
+
+                <!-- Dropdown Links -->
+                <ul x-show="open" class="pl-6 mt-1 space-y-1">
+                    <li><a href="{% url 'add_staff' %}" class="block px-2 py-1 hover:bg-gray-200">Add Staff</a></li>
+                    <li><a href="{% url 'view_staff' %}" class="block px-2 py-1 hover:bg-gray-200">View Staff</a></li>
+
+                </ul>
+            </li>
+
+					  <!-- Course Link with Dropdowns -->
+            <li x-data="{ open: false }" class="relative">
+                <!-- Main Dashboard Link -->
+                <a href="#" @click.prevent="open = !open" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200">
+                  <i class="fa fa-chalkboard-teacher mr-2"></i> <!-- Course icon -->
+                    Course
+                    <i :class="open ? 'fa fa-angle-up ml-auto' : 'fa fa-angle-down ml-auto'"></i> <!-- Toggle icon -->
+                </a>
+
+                <!-- Dropdown Links -->
+                <ul x-show="open" class="pl-6 mt-1 space-y-1">
+                    <li><a href="{% url 'add_course' %}" class="block px-2 py-1 hover:bg-gray-200">Add Course</a></li>
+                    <li><a href="{% url 'view_course' %}" class="block px-2 py-1 hover:bg-gray-200">View Course</a></li>
+
+                </ul>
+            </li>
+
+					 <!--subjects Link with Dropdowns -->
+            <li x-data="{ open: false }" class="relative">
+                <!-- Main Dashboard Link -->
+                <a href="#" @click.prevent="open = !open" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200">
+                   <i class="fa fa-chalkboard-teacher mr-2"></i> <!-- Course icon -->
+                    Subjects
+                    <i :class="open ? 'fa fa-angle-up ml-auto' : 'fa fa-angle-down ml-auto'"></i> <!-- Toggle icon -->
+                </a>
+
+                <!-- Dropdown Links -->
+                <ul x-show="open" class="pl-6 mt-1 space-y-1">
+                    <li><a href="{% url 'add_subject' %}" class="block px-2 py-1 hover:bg-gray-200">Add Subject</a></li>
+                    <li><a href="{% url 'view_subject' %}" class="block px-2 py-1 hover:bg-gray-200">View Subject</a></li>
+
+                </ul>
+            </li>
+		 <!--subjects Link with Dropdowns -->
+            <li x-data="{ open: false }" class="relative">
+                <!-- Main Dashboard Link -->
+                <a href="#" @click.prevent="open = !open" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200">
+                 <i class="fa fa-calendar-alt mr-2"></i> <!-- Session icon -->
+                    Session
+                    <i :class="open ? 'fa fa-angle-up ml-auto' : 'fa fa-angle-down ml-auto'"></i> <!-- Toggle icon -->
+                </a>
+
+                <!-- Dropdown Links -->
+                <ul x-show="open" class="pl-6 mt-1 space-y-1">
+                    <li><a href="{% url 'add_session' %}" class="block px-2 py-1 hover:bg-gray-200">Add Session</a></li>
+                    <li><a href="{% url 'view_session' %}" class="block px-2 py-1 hover:bg-gray-200">View Session</a></li>
+
+                </ul>
+            </li>
+                     <li>
+						<a href="{% url 'send_staff_notifications' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							 <i class="fa-solid fa-bell mr-2"></i>
+							Staff Notification
+						</a>
+					</li>
+                     <li>
+						<a href="{% url 'student_send_notifications' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							 <i class="fa-solid fa-bell mr-2"></i>
+                            Student Notification
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'view_student_attendance' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							 <i class="fa-solid fa-user-check mr-2"></i>
+							View Attendance
+						</a>
+					</li>
+						<li>
+						<a href="{% url 'staff_feedback_view' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							 <i class="fa-solid fa-users mr-2"></i>
+							Staff Feedback
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'student_feedback_view' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							 <i class="fa-solid fa-user-graduate mr-2"></i>
+							Student Feedback
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'staff_leave_view' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+						 <i class="fa-solid fa-user-times mr-2"></i>
+							Staff Leave
+						</a>
+					</li>
+					 <li>
+						<a href="{% url 'student_leave_view' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+						  <i class="fa-solid fa-user-slash mr-2"></i>
+							Student Leave
+						</a>
+					</li>
+					 <li>
+						<a href="{% url 'dologout' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+						  <i class="fa-solid fa-sign-out-alt mr-2"></i>
+							Logout
+						</a>
+					</li>
+				</ul>
+          {% elif user.user_type == '2' %}
+				<a href="{% url 'staff_home' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							  <i class="fa fa-dashboard mr-2"></i> <!-- Dashboard icon -->
+							Dashboard
+						</a>
+				<a href="{% url 'staff_take_attendance' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							 <i class="fa fa-check-square mr-2"></i> <!-- Attendance icon -->
+							Take Attendance
+						</a>
+				<a href="{% url 'staff_view_attendance' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							 <i class="fa fa-eye mr-2"></i> <!-- View icon -->
+							View Attendance
+						</a>
+				<a href="{% url 'add_result' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							 <i class="fa fa-plus-square mr-2"></i> <!-- Add Result icon -->
+							Add Result
+						</a>
+				<a href="{% url 'apply_leave' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							  <i class="fa fa-envelope-open-text mr-2"></i> <!-- Leave icon -->
+							Apply For Leave
+						</a>
+				<a href="{% url 'staff_feedback' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							   <i class="fa fa-comments mr-2"></i> <!-- Feedback icon -->
+							Send Feedback
+						</a>
+					<a href="{% url 'notifications' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							   <i class="fa fa-bell mr-2"></i> <!-- Feedback icon -->
+							Notifications
+						</a>
+				<a href="{% url 'dologout' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+						  <i class="fa fa-sign-out-alt mr-2"></i> <!-- Logout icon -->
+							Logout
+						</a>
+				{% else %}
+							<a href="{% url 'student_home' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							  <i class="fa fa-dashboard mr-2"></i> <!-- Dashboard icon -->
+							Dashboard
+						</a>
+
+				<a href="{% url 'student_view_attendance' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							 <i class="fa fa-eye mr-2"></i> <!-- View icon -->
+							View Attendance
+						</a>
+				<a href="{% url 'student_view_result' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							 <i class="fa fa-eye mr-2"></i> <!-- Add Result icon -->
+							View Result
+						</a>
+				<a href="{% url 'student_apply_leave' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							  <i class="fa fa-envelope-open-text mr-2"></i> <!-- Leave icon -->
+							Apply For Leave
+						</a>
+				<a href="{% url 'student_feedback' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							   <i class="fa fa-comments mr-2"></i> <!-- Feedback icon -->
+							Send Feedback
+						</a>
+					<a href="{% url 'student_notifications' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+							   <i class="fa fa-bell mr-2"></i> <!-- Feedback icon -->
+							Notifications
+						</a>
+				<a href="{% url 'dologout' %}" class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+						  <i class="fa fa-sign-out-alt mr-2"></i> <!-- Logout icon -->
+							Logout
+						</a>
+				
+				{% endif %}
+			</div>
+		</div>
+
+		<!-- @end Menu Above Medium Screen -->

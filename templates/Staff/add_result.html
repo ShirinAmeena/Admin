@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Add Result</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6"> <!-- Set form width to 50% using Bootstrap grid -->
+          {% if action is None %}
+            <form action="?action=show_students" method="post" class="p-4 shadow rounded bg-white" >
+            {% csrf_token %}
+            {% include 'includes/messages.html' %}
+              <div class="mb-3">
+                    <label for="course" class="form-label">Subject</label>
+                   <select class="form-select gender-select" name="subject_id" required>
+                        <option>Select Subject</option>
+                       {% for i in subjects %}
+                        <option value="{{i.id}}">{{i.name}}</option>
+                      {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+            <label for="staff" class="form-label">Session Year</label>
+            <select class="form-select gender-select" name="session_year_id" required>
+                <option>Select Session Year</option>
+                {% for i in session_year %}
+                    <option value="{{ i.id }}">
+                        {{ i.session_start|date:"Y" }} &nbsp; to &nbsp; {{ i.session_end|date:"Y" }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success">Fetch Students</button>
+                </div>
+            </form>
+     {% else %}
+            <form action="{% url 'save_result' %}" method="post" class="p-4 shadow rounded bg-white" >
+            {% csrf_token %}
+            {% include 'includes/messages.html' %}
+              <div class="mb-3">
+                    <label for="subject" class="form-label">Subject</label>
+                  <select class="form-select gender-select" name="subject_id">
+    {% for i in subjects %}
+        <option value="{{ i.id }}">{{ i.name }}</option>
+    {% endfor %}
+</select>
+
+
+                </div>
+                <div class="mb-3">
+            <label for="session_year" class="form-label">Session Year</label>
+         <select class="form-select gender-select" name="session_year_id" disabled>
+      <option value="{{ get_session_year.id }}">
+        {{ get_session_year.session_start|date:"Y" }} - {{ get_session_year.session_end|date:"Y" }}
+      </option>
+    </select>
+        </div>
+                <div class="mb-3">
+            <label for="student_list" class="form-label">Student List</label>
+        <select class="form-select gender-select" name="student_id">
+    {% for student in students %}
+        <option value="{{ student.admin.id }}">
+            ID{{ student.admin.id }}: {{ student.admin.first_name }} {{ student.admin.last_name }}
+        </option>
+    {% endfor %}
+</select>
+
+        </div>
+                 <div class="mb-3">
+                    <label for="assignment_mark" class="form-label">Assignment Mark</label>
+                    <input id="assignment_mark" name="assignment_mark" type="number" class="form-control" value="" >
+                </div>
+                   <div class="mb-3">
+                    <label for="exam_mark" class="form-label">Exam Mark</label>
+                    <input id="exam_mark" name="exam_mark" type="number" class="form-control" value="" >
+                </div>
+ <button type="submit" class="btn btn-success">Add Result</button>
+            </form>
+   {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

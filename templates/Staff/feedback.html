@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Feedback</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="{% url 'save_feedback' %}" method="post" class="p-4 shadow rounded bg-white" enctype="multipart/form-data">
+                <div class="text-end mb-3">
+                    <button type="button" class="btn btn-warning" id="openModalBtn">Feedback History</button>
+                </div>
+                {% csrf_token %}
+                {% include 'includes/messages.html' %}
+
+                <div class="mb-3">
+                    <label for="feedback" class="form-label">Feedback</label>
+                    <textarea class="form-control" name="feedback" rows="8" required></textarea>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success">Send Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal for Feedback History -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Feedback History</h3>
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Feedback</th>
+                    <th scope="col">Reply</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in feedback_history %}
+                <tr>
+                    <th scope="row">{{ i.id }}</th>
+                    <td>{{ i.feedback }}</td>
+                    <td>
+                        {% if i.feedback_reply %}
+                        {{ i.feedback_reply }}
+                        {% else %}
+                        <span class="btn btn-info">No reply</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal CSS -->
+<style>
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 60%;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+</style>
+
+<!-- Modal JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the modal and the open/close buttons
+    var modal = document.getElementById('myModal');
+    var openModalBtn = document.getElementById('openModalBtn');
+    var closeModalBtn = document.querySelector('.close');
+
+    // Open the modal when the button is clicked
+    openModalBtn.addEventListener('click', function () {
+        modal.style.display = 'block';
+    });
+
+    // Close the modal when the "x" is clicked
+    closeModalBtn.addEventListener('click', function () {
+        modal.style.display = 'none';
+    });
+
+    // Close the modal if the user clicks outside the modal content
+    window.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
+</script>
+{% endblock %}

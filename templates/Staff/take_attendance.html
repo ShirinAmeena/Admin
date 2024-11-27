@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Take Attendance</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6"> <!-- Set form width to 50% using Bootstrap grid -->
+            {% if action is None %}
+            <form action="?action=get_student" method="post" class="p-4 shadow rounded bg-white" >
+
+            {% csrf_token %}
+            {% include 'includes/messages.html' %}
+              <div class="mb-3">
+                    <label for="course" class="form-label">Subject</label>
+                   <select class="form-select gender-select" name="subject_id" required>
+                        <option>Select Subject</option>
+                       {% for i in subject %}
+                        <option value="{{i.id}}">{{i.name}}</option>
+                      {% endfor %}
+                    </select>
+
+                </div>
+                <div class="mb-3">
+            <label for="staff" class="form-label">Session Year</label>
+            <select class="form-select gender-select" name="session_year_id" required>
+                <option>Select Session Year</option>
+                {% for i in session_year %}
+                    <option value="{{ i.id }}">
+                        {{ i.session_start|date:"Y" }} &nbsp; to &nbsp; {{ i.session_end|date:"Y" }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+                        <div class="d-grid">
+                    <button type="submit" class="btn btn-success">Fetch Student</button>
+                </div>
+            </form>
+            {% else %}
+              <form action="{% url 'staff_save_attendance' %}" method="post" class="p-4 shadow rounded bg-white" >
+
+            {% csrf_token %}
+            {% include 'includes/messages.html' %}
+              <div class="mb-3">
+                    <label for="course" class="form-label">Subject</label>
+                   <select class="form-select gender-select" name="subject_id" required>
+                        <option value="{{get_subject.id}}">{{get_subject}}</option>
+                    </select>
+
+                </div>
+                  <div class="mb-3">
+                    <label for="staff" class="form-label">Session Year</label>
+                   <select class="form-select gender-select" name="session_year_id" required>
+                       <option value="{{ get_session_year.id }}">
+               {{ get_session_year.session_start|date:"Y" }} - {{ get_session_year.session_end|date:"Y" }}
+                </option>
+                   </select>
+                </div>
+                     <div class="mb-3">
+                    <label for="attendance_date" class="form-label">Attendance Date</label>
+                    <input id="attendance_date" name="attendance_data" type="date" class="form-control" required>
+                </div>
+                 {% for i in students %}
+<div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="students" name="student_id" value="{{ i.id }}">
+    <label class="form-check-label" for="students">{{ i.admin.first_name }} {{ i.admin.last_name }}</label>
+</div>
+{% endfor %}
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success">Add Attendance</button>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
